@@ -1,7 +1,7 @@
 import {Dimensions, StyleSheet} from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
-
+const windowHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
   linearGradient: {
     display: 'flex',
@@ -10,15 +10,15 @@ const styles = StyleSheet.create({
   whiteWeatherImage: {
     position: 'absolute',
     right: -50,
-    marginTop: 200,
+    marginTop: windowHeight > 700 ?  200 : 150,
   },
   gradientWeatherImage: {
     position: 'absolute',
     right: -50,
-    marginTop: 195,
+    marginTop: windowHeight > 700 ?  195 : 145,
   },
   tempView: {
-    marginTop: '45%',
+    marginTop: '30%',
     alignSelf: 'center',
   },
   tempText: {
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   timeView: {
-    marginTop: '20%',
+    marginTop: windowHeight > 700 ? '20%' : '0%',
     marginLeft: '10%',
     alignSelf: 'baseline',
   },
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
     marginRight: 30,
     color: 'white',
+    // marginTop: 25
   },
   nextMonthText: {
     fontSize: 18,
