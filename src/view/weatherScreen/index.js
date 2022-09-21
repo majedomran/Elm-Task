@@ -32,12 +32,9 @@ const WeatherScreen = ({navigation, route}) => {
 
   useEffect(() => {
     initRequests();
-    //
   }, []);
 
   const renderTime = () => {
-    // console.log('------time render:: ', time);
-    // formatTime(time)
     return (
       <View
         style={{marginTop: '20%', marginLeft: '10%', alignSelf: 'baseline'}}>
@@ -98,20 +95,17 @@ const WeatherScreen = ({navigation, route}) => {
 
   const renderTimeSlide = hour => {
     const percentage = (1 - hour / 24) * 100 * 0.75;
-    console.log('------percentage: ', percentage);
     return (
       <View
         style={{
           width: windowWidth,
           height: '8%',
-          // backgroundColor: 'grey',
           marginTop: '10%',
         }}>
         <View
           style={{
             flexDirection: 'row',
             height: 50,
-            // backgroundColor: 'red',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -211,7 +205,6 @@ const WeatherScreen = ({navigation, route}) => {
     return (
       <View
         style={{
-          // backgroundColor: 'grey',
           width: windowWidth,
           height: '20%',
         }}>
@@ -240,10 +233,7 @@ const WeatherScreen = ({navigation, route}) => {
           </Text>
         </View>
         <View style={{flexDirection: 'row'}}>
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate('settingsScreen');
-            }}>
+          <TouchableOpacity>
             <Icon
               name="setting"
               size="lg"
@@ -251,60 +241,61 @@ const WeatherScreen = ({navigation, route}) => {
               style={{marginLeft: 20}}
             />
           </TouchableOpacity>
-          <Icon
-            name="clock-circle"
-            size="lg"
-            color="white"
-            style={{marginLeft: 20}}
-          />
+          <TouchableOpacity>
+            <Icon
+              name="clock-circle"
+              size="lg"
+              color="white"
+              style={{marginLeft: 20}}
+            />
+          </TouchableOpacity>
         </View>
       </View>
     );
   };
-  // box-shadow: rgba(0, 0, 0, 0.35) 0px -50px 36px -28px inset;
   return (
-    // <View
-    //   style={{
-    //     display: 'flex',
-    //     flex: 1,
-    //     backgroundColor: '#A99785',
-    //     // shadowColor: 'black',
-    //     // shadowOpacity: 1,
-    //     // shadowRadius: 200,
-    //     // shadowOffset: 1,
-    //   }}>
     <LinearGradient
-      style={{display: 'flex', flex: 1, backgroundColor: '#A99785'}}
-      colors={['#BCAC98', '#625043', 'black']}
+      style={{
+        display: 'flex',
+        flex: 1,
+      }}
+      colors={
+        getWeather() === 'Clouds'
+          ? ['#BCAC98', '#625043', 'black']
+          : getWeather() === 'Snow'
+          ? ['#5FCCCA', '#448BCC', 'black']
+          : ['#EFDB4E', '#DF7937', 'black']
+      }
       locations={[0, 0.65, 1]}>
       {renderTime()}
 
       <Image
-        source={require('../../../assets/ellipse-white.png')}
+        source={
+          getWeather() === 'Clouds'
+            ? require('../../../assets/ellipse-white.png')
+            : getWeather() === 'Snow'
+            ? require('../../../assets/snow-white.png')
+            : require('../../../assets/sunny-white.png')
+        }
         style={{position: 'absolute', right: -50, marginTop: 200}}
       />
       <Image
-        source={require('../../../assets/ellipse-gradient.png')}
+        source={
+          getWeather() === 'Clouds'
+            ? require('../../../assets/ellipse-gradient.png')
+            : getWeather() === 'Snow'
+            ? require('../../../assets/snow-gradient.png')
+            : require('../../../assets/sunny-gradient.png')
+        }
         style={{
           position: 'absolute',
           right: -50,
           marginTop: 195,
-          // flex: 1,
-
-          // backgroundColor: 'grey',
         }}
       />
       {renderTemp()}
-      {
-        renderTimeSlide(10) // change to real time
-      }
+      {renderTimeSlide(time / 3600)}
       {renderDetails()}
-
-      {/* <TouchableOpacity
-        style={{height: 200, width: 200, backgroundColor: 'grey'}}
-        onPress={() => {
-          console.log('------localTimeZoneId: ', localTimeZoneId);
-        }}></TouchableOpacity> */}
     </LinearGradient>
   );
 };

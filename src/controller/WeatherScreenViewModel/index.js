@@ -1,6 +1,5 @@
 import {useDispatch, useSelector} from 'react-redux';
 import {getWeatherAction} from '../../redux/reducers/weatherReducer';
-import {getTimeZoneAction} from '../../redux/reducers/timeZoneReducer';
 import {useEffect, useState} from 'react';
 
 const WeatherScreenViewModel = () => {
@@ -12,38 +11,21 @@ const WeatherScreenViewModel = () => {
     new Date().getHours() * 3600 + new Date().getMinutes() * 60,
   );
 
-  useEffect(() => {
-    if (lon && lat) {
-      dispatch(getTimeZoneAction({lon, lat}));
-    }
-  }, [lon, lat]);
 
   useEffect(() => {
     setInterval(() => {
-      console.log('------time: ', time);
       setTime(prevState => prevState + 1);
     }, 1000);
   }, []);
 
   const formatTime = localTime => {
-    console.log('------time formatTime', localTime);
     const timeMinutes = Math.floor(localTime / 60);
-    // const date = new Date();
-    //   console.log('------date: ', date);
     const hour = Math.floor(timeMinutes / 60);
     const hourString = hour < 10 ? `0${hour}` : `${hour}`;
     const minutes = timeMinutes % 60;
     const minutesString = minutes < 10 ? `0${minutes}` : `${minutes}`;
     const timeString = `${hourString}:${minutesString}`;
-    //   console.log('------time: ', hour);
-    //   console.log('------timeString: ', timeString);
-    // return {time: timeString, timeDate: new Date()};
-
-    // console.log('------momentTime: ', );
-    console.log('------timeMinutes: ', timeMinutes);
-    console.log('------timeString: ', timeString);
     return timeString;
-    // }
   };
 
   const getMonth = () => {
@@ -66,13 +48,11 @@ const WeatherScreenViewModel = () => {
     return monthNames[month];
   };
   const getAmPm = () => {
-    const time = new Date().getTime();
-    const ampm = time <= 12 ? 'am' : 'pm';
+    const ampm = time <= 43200 ? 'am' : 'pm';
 
     return ampm;
   };
   const initRequests = () => {
-    console.log('------dispatching init');
     dispatch(getWeatherAction({}));
   };
   const getTemp = () => {

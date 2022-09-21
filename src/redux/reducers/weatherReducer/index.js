@@ -7,7 +7,7 @@ const initialState = {
   temp: null,
   lon: null,
   lat: null,
-  city: null,
+  city: 'San Francisco, CA',
   weatherLoading: null,
   error: null,
 };
@@ -15,16 +15,14 @@ export const getWeatherAction = createAsyncThunk(
   'weather/getWeahter',
   async ({}, {rejectWithValue}) => {
     try {
-      console.log('------requesting getWeatherAction');
       const response = await api
         .get(
-          `/weather?q=london&units=metric&appid=${API_ID}`,
+          `/weather?q=san francisco&units=metric&appid=${API_ID}`,
           {},
         )
         .catch(err => {
-          console.log('------err: ', err);
+          console.log('Error: ', err);
         });
-      console.log('------response: ', response);
       if (response?.status === 200) {
         return response.data;
       } else {
@@ -48,30 +46,21 @@ const weatherReducer = createSlice({
   reducers: {},
   extraReducers: {
     [getWeatherAction.fulfilled]: (state, action) => {
-      console.log('------action: ', action);
       state.weather = action.payload?.weather[0].main;
       state.temp = action.payload?.main.temp;
       state.timeZone = action.payload?.timezone;
       state.lon = action.payload?.coord.lon;
       state.lat = action.payload?.coord.lat;
-      state.city = action.payload?.name;
       state.weatherLoading = false;
-      // state.LocalDate = new Date()
     },
     [getWeatherAction.pending]: (state, action) => {
       state.weatherLoading = true;
     },
     [getWeatherAction.rejected]: (state, action) => {
-      console.log('------action: ', action);
       state.error = action.payload;
       state.weatherLoading = false;
     },
   },
 });
-
-// Actions
-// export const {
-
-// } = weatherReducer.actions;
 
 export default weatherReducer.reducer;

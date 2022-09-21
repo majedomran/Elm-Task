@@ -1,7 +1,6 @@
 import {persistCombineReducers} from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 import weatherReducer from './weatherReducer';
-import timeZoneReducer from './timeZoneReducer';
 
 const persistConfig = {
   key: 'root',
@@ -12,7 +11,6 @@ const persistConfig = {
 };
 const reducers = persistCombineReducers(persistConfig, {
   weather: weatherReducer,
-  timeZone: timeZoneReducer,
 });
 
 // Global common for reducers
