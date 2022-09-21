@@ -1,15 +1,16 @@
 import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import {api} from '../../../network';
+import {API_ID} from '../../../config/apiConfig';
+
 const initialState = {
   weather: null,
   temp: null,
   lon: null,
   lat: null,
   city: null,
-  // LocalDate: null,
+  weatherLoading: null,
   error: null,
 };
-// https://api.openweathermap.org/data/2.5/weather?lat=44.34&lon=10.99&appid=3b7a2dcdbe0ff845d0da048d6d2dcb3b
 export const getWeatherAction = createAsyncThunk(
   'weather/getWeahter',
   async ({}, {rejectWithValue}) => {
@@ -17,7 +18,7 @@ export const getWeatherAction = createAsyncThunk(
       console.log('------requesting getWeatherAction');
       const response = await api
         .get(
-          `/weather?q=london&units=metric&appid=3b7a2dcdbe0ff845d0da048d6d2dcb3b`,
+          `/weather?q=london&units=metric&appid=${API_ID}`,
           {},
         )
         .catch(err => {
@@ -54,10 +55,16 @@ const weatherReducer = createSlice({
       state.lon = action.payload?.coord.lon;
       state.lat = action.payload?.coord.lat;
       state.city = action.payload?.name;
+      state.weatherLoading = false;
       // state.LocalDate = new Date()
+    },
+    [getWeatherAction.pending]: (state, action) => {
+      state.weatherLoading = true;
     },
     [getWeatherAction.rejected]: (state, action) => {
       console.log('------action: ', action);
+      state.error = action.payload;
+      state.weatherLoading = false;
     },
   },
 });

@@ -7,30 +7,37 @@ import {
   DeviceEventEmitter,
   Dimensions,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import WeatherScreenViewModel from '../../controller/WeatherScreenViewModel';
 import {Icon} from '@ant-design/react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import AwesomeLoading from 'react-native-awesome-loading';
 
 const WeatherScreen = ({navigation, route}) => {
   const windowWidth = Dimensions.get('window').width;
 
   const {
-    getTime,
+    time,
     getMonth,
     getAmPm,
     initRequests,
     getTemp,
     getWeather,
     getCity,
+    isLoading,
+    formatTime,
   } = WeatherScreenViewModel();
 
   useEffect(() => {
     initRequests();
+    //
   }, []);
 
   const renderTime = () => {
+    // console.log('------time render:: ', time);
+    // formatTime(time)
     return (
       <View
         style={{marginTop: '20%', marginLeft: '10%', alignSelf: 'baseline'}}>
@@ -45,7 +52,7 @@ const WeatherScreen = ({navigation, route}) => {
             color: 'white',
             fontWeight: '600',
           }}>
-          {getTime().timeString}
+          {formatTime(time)}
         </Text>
         <Text
           style={{
@@ -67,9 +74,13 @@ const WeatherScreen = ({navigation, route}) => {
           marginTop: '45%',
           alignSelf: 'center',
         }}>
-        <Text style={{fontSize: 56, color: 'white', alignSelf: 'center'}}>
-          {getTemp()}
-        </Text>
+        {isLoading() ? (
+          <ActivityIndicator size="large" color="white" />
+        ) : (
+          <Text style={{fontSize: 56, color: 'white', alignSelf: 'center'}}>
+            {getTemp()}
+          </Text>
+        )}
         <View
           style={{
             height: 2,
@@ -267,6 +278,7 @@ const WeatherScreen = ({navigation, route}) => {
       colors={['#BCAC98', '#625043', 'black']}
       locations={[0, 0.65, 1]}>
       {renderTime()}
+
       <Image
         source={require('../../../assets/ellipse-white.png')}
         style={{position: 'absolute', right: -50, marginTop: 200}}
@@ -283,7 +295,9 @@ const WeatherScreen = ({navigation, route}) => {
         }}
       />
       {renderTemp()}
-      {renderTimeSlide(getTime().timeDate.getHours())}
+      {
+        renderTimeSlide(10) // change to real time
+      }
       {renderDetails()}
 
       {/* <TouchableOpacity

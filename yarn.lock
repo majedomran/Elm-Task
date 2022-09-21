@@ -5749,6 +5749,11 @@ react-lifecycles-compat@^3.0.4:
   resolved "https://registry.npmjs.org/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
+react-native-awesome-loading@^1.0.15:
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/react-native-awesome-loading/-/react-native-awesome-loading-1.0.15.tgz#9255ebe0be96af5268f6ad3490e5d866c91b9a2f"
+  integrity sha512-PkRtL3k/T2jqhiBsUl1Hls7HoNGpg5NS5Ro7RoBcbcR67KgJI7FxLeY+aOJzNZGTJvGTRznqtIsIG6dlGKXTHw==
+
 react-native-codegen@^0.0.17:
   version "0.0.17"
   resolved "https://registry.npmjs.org/react-native-codegen/-/react-native-codegen-0.0.17.tgz"
@@ -5772,6 +5777,11 @@ react-native-collapsible@^1.6.0:
   version "1.6.0"
   resolved "https://registry.npmjs.org/react-native-collapsible/-/react-native-collapsible-1.6.0.tgz"
   integrity sha512-beZjdgbT9Y/Pg591Xy5XkKG20HffJiVad4n9bfcUF/f783A+tvOVXnqvbS58Lkaym93mi4jcDPMuW9Vc1t6rqg==
+
+react-native-fast-image@^8.6.1:
+  version "8.6.1"
+  resolved "https://registry.yarnpkg.com/react-native-fast-image/-/react-native-fast-image-8.6.1.tgz#6a3a11b8ebc7629919265d33a420a04d13c897e0"
+  integrity sha512-ILuP7EuakqHNzTr8ZbumhuxG4tE/wGQ66z4nEEuzc0FlqY6rYaPsnq/UD2ahoyFj6QP1WvA2RIK3odib+VcqWg==
 
 react-native-gesture-handler@^2.6.1:
   version "2.6.1"
